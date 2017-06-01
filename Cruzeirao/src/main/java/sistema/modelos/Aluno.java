@@ -1,10 +1,10 @@
 package sistema.modelos;
 
-
+import javax.persistence.*;
 
 public class Aluno {
 
-
+	@Id
 	private int matricula;
 	private String nome;
 	private String curso;
