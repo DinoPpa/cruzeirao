@@ -1,28 +1,30 @@
 package cruzeirao.service;
 
 import java.util.*;
+
+import cruzeirao.dao.*;
 import cruzeirao.model.*;
 
 public class CampeonatoService {
-	private List<Campeonato> campeonatos;
-	private List<Categoria> categorias;
-	private List<Juiz> juizes;
-	private List<Local> locais;
+	private CampeonatoDao campeonatoDao = new CampeonatoDao();
+	private CategoriaDao categoriaDao = new CategoriaDao();
+	private LocalDao localDao = new LocalDao();
+	private JuizDao juizDao = new JuizDao();
 	
 	public List<Local> listarLocais(){
-		return locais;
+		return localDao.getAll();
 	}
 	
 	public List<Juiz> listarJuizes(){
-		return juizes;
+		return juizDao.getAll();
 	}
 	
 	public List<Categoria> listarCategorias(){
-		return categorias;
+		return categoriaDao.getAll();
 	}
 	
 	public void salvar(Campeonato e){
-		campeonatos.add(e);
+		campeonatoDao.save(e);
 	}
 }
  
