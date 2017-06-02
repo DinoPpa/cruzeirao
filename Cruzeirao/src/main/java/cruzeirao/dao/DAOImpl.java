@@ -12,22 +12,22 @@ public abstract class DAOImpl <T, I extends Serializable> {
 
     private static EntityManagerFactory emf;
     private EntityManager em;
+    private Class<T> classe;
     
-     public DAOImpl() {
-    	
+    public DAOImpl(Class<T> classe) {
+    	this.classe = classe;
     	emf = Persistence.createEntityManagerFactory("Cruzeirao");
-
 	}
 
-
 	public T save(T entity) {
-
 		T saved = null;
 
 		getEntityManager().getTransaction().begin();
 		saved = getEntityManager().merge(entity);
 		getEntityManager().getTransaction().commit();
 
+		closeEntityManager();
+		
 		return saved;
 	}
 
@@ -36,51 +36,43 @@ public abstract class DAOImpl <T, I extends Serializable> {
 		getEntityManager().getTransaction().begin();
 		getEntityManager().remove(entity);
 		getEntityManager().getTransaction().commit();
-
+		
+		closeEntityManager();
 	}
-
-
-	public T getById(Class<T> classe, I pk) {
-
+	
+	public T getById(I pk) {
+		T ret;
+		
 		try {
-			return getEntityManager().find(classe, pk);
+			ret = getEntityManager().find(classe, pk);			
 		} catch (NoResultException e) {
-			return null;
+			ret = null;
 		}
-
+		closeEntityManager();
+		
+		return ret;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> getAll(Class<T> classe) {
-
-		return getEntityManager().createQuery("select o from " + classe.getSimpleName() + " o").getResultList();
+	public List<T> getAll() {
+		List<T> ret = getEntityManager().createQuery("select o from " + classe.getSimpleName() + " o").getResultList();
+		
+		closeEntityManager();
+		
+		return ret;
 	}
 
-
-	public EntityManager getEntityManager() {
-	  
-	 if(em == null)
-	 	em = emf.createEntityManager();
-	  
-	  return em;
+	public EntityManager getEntityManager() { 
+		if(em == null)
+			em = emf.createEntityManager();
+  
+		return em;
 	}
 	
-
 	public void closeEntityManager(){
-		
 		if(em != null)
 			em.close();
 		
 		em = null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
