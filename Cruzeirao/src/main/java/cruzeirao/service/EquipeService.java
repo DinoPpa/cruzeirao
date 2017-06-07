@@ -1,17 +1,14 @@
 package cruzeirao.service;
 
 import java.util.*;
+
+import cruzeirao.dao.*;
 import cruzeirao.model.*;
 
-public class EquipeService {
-	private List<Equipe> equipes;
+public class EquipeService extends BaseService<Equipe>{
+	private DiretorDao diretorDao = new DiretorDao();
 	
-	private List<Equipe> listar(){
-		//listar equipes que o usuário dirige;
-		return equipes;
-	}
-	
-	private void salvar(Equipe e){
-		equipes.add(e);
+	public List<Diretor> listarDiretores(){
+		return diretorDao.getAll();
 	}
 }

@@ -3,12 +3,12 @@ package cruzeirao.model;
 import javax.persistence.*;
 
 @Entity
-public class UsuarioInscricao
+public class UsuarioInscricao implements EntityModel
 {	
-	public int getId() {
+	@Override public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	@Override public void setId(long id){
 		this.id = id;
 	}
 	public int getCodigoInscricao() {
@@ -49,7 +49,7 @@ public class UsuarioInscricao
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 	
 	private int codigoInscricao;
 	

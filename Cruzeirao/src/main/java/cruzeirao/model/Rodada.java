@@ -4,12 +4,12 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-public class Rodada {
-	public int getId() {
+public class Rodada implements EntityModel {
+	@Override public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	@Override public void setId(long id){
 		this.id = id;
 	}
 
@@ -31,7 +31,7 @@ public class Rodada {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 	
 	@OneToMany(mappedBy="rodada")
 	private List<Partida> partidas;

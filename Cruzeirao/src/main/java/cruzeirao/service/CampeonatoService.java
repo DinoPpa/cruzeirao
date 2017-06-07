@@ -5,8 +5,7 @@ import java.util.*;
 import cruzeirao.dao.*;
 import cruzeirao.model.*;
 
-public class CampeonatoService {
-	private CampeonatoDao campeonatoDao = new CampeonatoDao();
+public class CampeonatoService extends BaseService<Campeonato> {
 	private CategoriaDao categoriaDao = new CategoriaDao();
 	private LocalDao localDao = new LocalDao();
 	private JuizDao juizDao = new JuizDao();
@@ -21,10 +20,6 @@ public class CampeonatoService {
 	
 	public List<Categoria> listarCategorias(){
 		return categoriaDao.getAll();
-	}
-	
-	public void salvar(Campeonato e){
-		campeonatoDao.save(e);
 	}
 }
  

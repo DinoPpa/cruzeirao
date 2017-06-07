@@ -5,12 +5,12 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-public class Partida {
-	public int getId() {
+public class Partida implements EntityModel {
+	@Override public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	@Override public void setId(long id){
 		this.id = id;
 	}
 
@@ -80,7 +80,7 @@ public class Partida {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 	
 	private Date dataHora;
 	private Local local;

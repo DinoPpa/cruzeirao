@@ -4,14 +4,31 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-public class Campeonato {
+public class Campeonato implements EntityModel {
+	@Override
+	public long getId() {
+		return id;
+	}
 	
+	@Override
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public boolean getInscricaoAtiva() {
+		return inscricaoAtiva;
+	}
+
+	public void setInscricaoAtiva(boolean inscricaoAtiva) {
+		this.inscricaoAtiva = inscricaoAtiva;
 	}
 
 	public Date getDataInicioInscricao() {
@@ -58,30 +75,67 @@ public class Campeonato {
 		return locais;
 	}
 
-	public void setLocais(List<Local> locais) {
-		this.locais = locais;
+	public void addLocal(Local local) {
+		this.locais.add(local);
+	}
+	
+	public void removeLocal(Local local){
+		this.locais.remove(local);
 	}
 
 	public List<Juiz> getJuizes() {
 		return juizes;
 	}
 
-	public void setJuizes(List<Juiz> juizes) {
-		this.juizes = juizes;
+	public void addJuiz(Juiz juiz) {
+		this.juizes.add(juiz);
+	}
+	
+	public void removeJuiz(Juiz juiz){
+		this.juizes.remove(juiz);
 	}
 
-	public List<CategoriaCampeonato> getCategorias() {
-		return categorias;
+	public List<Categoria> getCategorias() {
+		List<Categoria> ret = new ArrayList<Categoria>();
+		
+		for(CategoriaCampeonato c : categorias){
+			ret.add(c.getCategoria());
+		}
+		
+		return ret;
 	}
 
-	public void setCategorias(List<CategoriaCampeonato> categorias) {
-		this.categorias = categorias;
+	public void addCategorias(Categoria categoria) {
+		CategoriaCampeonato cate = new CategoriaCampeonato();
+		
+		cate.setCategoria(categoria);
+		cate.setCampeonato(this);
+		
+		this.categorias.add(cate);
+	}
+	
+	public void removeCategoria(Categoria categoria){
+		CategoriaCampeonato remove = null;
+		
+		for(CategoriaCampeonato c : categorias){
+			if(c.getCategoria().equals(c)){
+				remove = c;
+				break;
+			}
+		}
+		
+		if(remove != null){
+			categorias.remove(remove);
+		}
 	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+	
 	private String nome;
 
+	private boolean inscricaoAtiva;
 	private Date dataInicioInscricao;
 	private Date dataFimInscricao;
 	private Date dataInicioCampeonato;

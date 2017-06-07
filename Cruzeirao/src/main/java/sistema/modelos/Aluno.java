@@ -2,6 +2,7 @@ package sistema.modelos;
 
 import javax.persistence.*;
 
+@Entity
 public class Aluno {
 
 	@Id

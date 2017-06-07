@@ -5,11 +5,11 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-public class Diretor {
-	public int getId() {
+public class Diretor  implements EntityModel{
+	@Override public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	@Override public void setId(long id){
 		this.id = id;
 	}
 	public Usuario getUsuario() {
@@ -44,7 +44,7 @@ public class Diretor {
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 	
 	@OneToOne
 	private Usuario usuario;

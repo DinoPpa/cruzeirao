@@ -1,37 +1,31 @@
 package cruzeirao.service;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import cruzeirao.dao.*;
 import cruzeirao.model.*;
 
-public class InscricaoService {
-	private List<Campeonato> campeonatos;
-	private List<CategoriaCampeonato> categorias;
-	private List<Equipe> equipes;
-	private List<Usuario> usuarios;
+public class InscricaoService extends BaseService<InscricaoEquipe> {
+	private CampeonatoDao campeonatoDao = new CampeonatoDao();
+	private EquipeDao equipeDao = new EquipeDao();
+	private UsuarioDao usuarioDao = new UsuarioDao();
+	private DiretorDao diretorDao = new DiretorDao();
 	
 	public List<Campeonato> listarCampeonatos(){
-		//ListarCampeonatosComInscricaoAtivas
-		return campeonatos;
+		return campeonatoDao.getAll().stream().filter(x -> x.getInscricaoAtiva()).collect(Collectors.toList());
 	}
 	
-	public List<CategoriaCampeonato> listarCategoriasPorCampeonato(int idCampeonato){
-		//Filtrar as categorias
-		return categorias;
+	public List<Categoria> listarCategoriasPorCampeonato(long idCampeonato){
+		return campeonatoDao.getById(idCampeonato).getCategorias();
 	}
 	
-	public List<Equipe> listarEquipes(){
-		//Listar as Equipes que o usuário Dirige
-		return equipes; 
+	public List<Equipe> listarEquipes(String diretor){
+		return diretorDao.getAll().stream().filter(x -> x.getUsuario().getLogin() == diretor).findFirst().get().getEquipes(); 
 	}
 	
 	public Usuario obterUsuarioPorCpf(String cpf){
-		//retornar Usuario pelo CPF
-		return usuarios.get(0);
-	}
-	
-	public void salvar(InscricaoEquipe e){
-		//Salvar
-	}
-	
-	
+		return usuarioDao.getAll().stream().filter(x -> x.getCpf() == cpf).findFirst().get();
+	}	
 }

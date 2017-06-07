@@ -24,6 +24,9 @@
 		<class>cruzeirao.model.Rodada</class>
 		<class>cruzeirao.model.Usuario</class>
 		<class>cruzeirao.model.UsuarioInscricao</class>
+		<class>sistema.modelos.Aluno</class>
+		<class>sistema.modelos.Produto</class>
+		<class>sistema.modelos.Fornecedor</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/DBCruzeirao;create=true"/>
 			<property name="javax.persistence.jdbc.user" value="app"/>

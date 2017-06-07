@@ -1,22 +1,15 @@
 package cruzeirao.service;
 
 import java.util.*;
+
+import cruzeirao.dao.*;
 import cruzeirao.model.*;
 
-public class JuizService {
-	private List<Juiz> juizes;
-	private List<Usuario> usuarios;
-	
-	public List<Juiz> listarJuizes(){
-		return juizes;
-	}
+public class JuizService extends BaseService<Juiz>{
+	private UsuarioDao usuarioDao = new UsuarioDao();
 	
 	public Usuario obterUsuarioPorCpf(String cpf){
-		//retornar usuario com CPF
-		return usuarios.get(0);
-	}
+		return usuarioDao.getAll().stream().filter(x -> x.getCpf() == cpf).findFirst().get();
+	}	
 	
-	public void salvar(Juiz e){
-		juizes.add(e);
-	}
 }

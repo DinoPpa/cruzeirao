@@ -6,12 +6,14 @@ import javax.persistence.*;
 
 
 @Entity
-public class EquipeCategoriaCampeonato {
-	public int getId() {
+public class EquipeCategoriaCampeonato implements EntityModel {
+	@Override 
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	@Override 
+	public void setId(long id){
 		this.id = id;
 	}
 
@@ -65,7 +67,7 @@ public class EquipeCategoriaCampeonato {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 	
 	@ManyToOne
 	private Equipe equipe;

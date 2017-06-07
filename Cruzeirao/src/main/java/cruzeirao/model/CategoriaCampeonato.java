@@ -4,13 +4,13 @@ package cruzeirao.model;
 import javax.persistence.*;
 
 @Entity
-public class CategoriaCampeonato {
+public class CategoriaCampeonato implements EntityModel {
 
-	public int getId() {
+	@Override public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	@Override public void setId(long id){
 		this.id = id;
 	}
 
@@ -32,7 +32,7 @@ public class CategoriaCampeonato {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	@ManyToOne
 	private Categoria categoria;

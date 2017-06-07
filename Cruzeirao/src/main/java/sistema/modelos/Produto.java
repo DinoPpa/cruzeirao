@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class Produto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

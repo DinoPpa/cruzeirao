@@ -1,6 +1,5 @@
 package cruzeirao.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,7 +7,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
-public abstract class DAOImpl <T, I extends Serializable> {
+import cruzeirao.model.EntityModel;
+
+public abstract class DAOImpl <T extends EntityModel> {
 
     private static EntityManagerFactory emf;
     private EntityManager em;
@@ -40,7 +41,7 @@ public abstract class DAOImpl <T, I extends Serializable> {
 		closeEntityManager();
 	}
 	
-	public T getById(I pk) {
+	public T getById(long pk) {
 		T ret;
 		
 		try {

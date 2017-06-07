@@ -2,13 +2,13 @@ package cruzeirao.service;
 
 import java.util.*;
 
+import cruzeirao.dao.UsuarioDao;
 import cruzeirao.model.*;
 
 public class LoginService {
-	private List<Usuario> usuarios;
+	private UsuarioDao usuarioDao=new UsuarioDao();
 	
 	public boolean autenticar(String usuario, String senha){
-		//Verificar ser existe usuario e senha na lista;
-		return true;
+		return usuarioDao.getAll().stream().anyMatch(x -> x.getLogin() == usuario && x.getSenha() == senha);
 	}
 }

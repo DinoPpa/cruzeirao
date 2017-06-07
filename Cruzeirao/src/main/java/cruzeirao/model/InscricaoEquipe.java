@@ -5,11 +5,11 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-public class InscricaoEquipe {
-	public int getId() {
+public class InscricaoEquipe implements EntityModel {
+	@Override public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	@Override public void setId(long id){
 		this.id = id;
 	}
 	public Equipe getEquipe() {
@@ -27,14 +27,20 @@ public class InscricaoEquipe {
 	public List<Jogador> getJogadores() {
 		return jogadores;
 	}
-	public void setJogadores(List<Jogador> jogadores) {
-		this.jogadores = jogadores;
+	public void addJogador(Jogador jogador) {
+		this.jogadores.add(jogador);
+	}
+	public void removeJogador(Jogador jogador){
+		this.jogadores.remove(jogador);
 	}
 	public List<ComissaoTecnica> getComissaoTecnica() {
 		return comissaoTecnica;
 	}
-	public void setComissaoTecnica(List<ComissaoTecnica> comissaoTecnica) {
-		this.comissaoTecnica = comissaoTecnica;
+	public void addComissaoTecnica(ComissaoTecnica comissaoTecnica) {
+		this.comissaoTecnica.add(comissaoTecnica);
+	}
+	public void removeComissaoTecnica(ComissaoTecnica comissaoTecnica) {
+		this.comissaoTecnica.remove(comissaoTecnica);
 	}
 	public String getCodigoInscricao() {
 		return codigoInscricao;
@@ -42,7 +48,7 @@ public class InscricaoEquipe {
 	public void setCodigoInscricao(String codigoInscricao) {
 		this.codigoInscricao = codigoInscricao;
 	}
-	public boolean isPagamentoEfetuado() {
+	public boolean getPagamentoEfetuado() {
 		return pagamentoEfetuado;
 	}
 	public void setPagamentoEfetuado(boolean pagamentoEfetuado) {
@@ -50,7 +56,7 @@ public class InscricaoEquipe {
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 	
 	@OneToOne
 	private Equipe equipe;

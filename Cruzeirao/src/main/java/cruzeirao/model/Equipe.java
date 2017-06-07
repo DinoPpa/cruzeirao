@@ -6,13 +6,13 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-public class Equipe
+public class Equipe implements EntityModel
 {
-	public int getId() {
+	@Override public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	@Override public void setId(long id){
 		this.id = id;
 	}
 
@@ -58,7 +58,7 @@ public class Equipe
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 	
 	private String nome;
 	private Date dataFundacao;

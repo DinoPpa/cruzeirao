@@ -5,12 +5,14 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-public class Fase {
-	public int getId() {
+public class Fase  implements EntityModel{
+	@Override
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	@Override 
+	public void setId(long id){
 		this.id = id;
 	}
 
@@ -56,7 +58,7 @@ public class Fase {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 	
 	private Date dataInicio;
 	private Date dataFim;
