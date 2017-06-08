@@ -1,0 +1,105 @@
+
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui2="http://java.sun.com/jsf/facelets"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+	
+	<ui:define name="title">
+		<h:outputText value="#{msg['pages.cadastroLocal.title']}" />
+	</ui:define>
+	
+
+
+
+	<ui:define name="principal">
+	  
+	  <h1><p:outputLabel value="#{msg['pages.cadastroLocal.menu']}"/></h1>
+	  
+	  <h:form id="formLocal">	
+	  <p:panelGrid columns="2">
+      <p:outputLabel value="#{msg['pages.cadastroLocal.nome']}" />
+      <p:inputText value="#{localManagedBean.local.nome}"/>
+      
+      <p:outputLabel value="#{msg['pages.cadastroLocal.nome']}" />
+		<p:selectOneMenu value="#{localManagedBean.local.endereco}"
+			converter="converterEndereco">
+			<f:selectItem itemValue="" itemLabel="#{msg['pages.cadastroProduto.fornecedor.msg']}" />
+			<f:selectItems value="#{localManagedBean.enderecos}" var="aux"
+				itemValue="#{aux}" itemLabel="#{aux.logradouro}" />
+		</p:selectOneMenu>
+      
+	  </p:panelGrid>
+	  <p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}" 
+	                 action="#{localManagedBean.salvar}"
+	                 update=":formLocal, :formTableLocal:tabelaLocal"
+	                 />
+       </h:form>
+
+   <br/>
+   
+   
+   <h3><p:outputLabel value="#{msg['pages.cadastroProduto.tableTitle']}" /> </h3>
+   <h:form id="formTableLocal">
+   
+    <p:dataTable
+                value="#{localManagedBean.locais}"
+                var="aux"
+                id="tabelaLocal"
+            
+                editable="true"
+            
+                paginator="true"
+                rows="5"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                
+                emptyMessage="#{msg['pages.cadastroProduto.filterMSG']}"
+                
+   >
+      
+      <p:ajax event="rowEdit" listener="#{localManagedBean.onRowEdit}" update="tabelaLocal" />
+      
+      
+      <p:column headerText="#{msg['pages.cadastroLocal.nome']}" filterBy="#{aux.nome}">
+    
+    			<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{aux.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText id="localNome" value="#{aux.nome}"
+							style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+	  </p:column>
+      
+      <p:column style="width:70px" headerText="#{msg['pages.cadastroLocal.optionTable']}">
+					
+					<p:rowEditor />
+					
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center"
+						actionListener="#{localManagedBean.remover(aux)}"
+						update="tabelaLocal" />
+	  </p:column>
+
+      
+      
+   </p:dataTable>	
+
+	</h:form>
+
+	
+   	   
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+

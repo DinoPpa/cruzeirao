@@ -76,6 +76,9 @@ public class Campeonato implements EntityModel {
 	}
 
 	public void addLocal(Local local) {
+		if(locais == null){
+			locais = new ArrayList<Local>();
+		}
 		this.locais.add(local);
 	}
 	

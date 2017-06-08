@@ -123,7 +123,8 @@ public class CampeonatoManagedBean {
 	}
 	
 	public List<Campeonato> getCampeonatos(){
-		return service.listar();
+		//return service.listar();
+		return new ArrayList<Campeonato>();
 	}
 
 }
