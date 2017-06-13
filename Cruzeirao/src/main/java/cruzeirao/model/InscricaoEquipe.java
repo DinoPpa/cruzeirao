@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.eclipse.persistence.internal.jpa.metadata.structures.ArrayAccessor;
+
 @Entity
 public class InscricaoEquipe implements EntityModel {
 	@Override public long getId() {
@@ -24,24 +26,20 @@ public class InscricaoEquipe implements EntityModel {
 	public void setCategoriaCampeonato(CategoriaCampeonato categoriaCampeonato) {
 		this.categoriaCampeonato = categoriaCampeonato;
 	}
-	public List<Jogador> getJogadores() {
-		return jogadores;
+	
+	public void addInscrito(UsuarioInscricao inscrito) {
+		if(inscritos == null){
+			inscritos = new ArrayList<UsuarioInscricao>();
+		}
+		
+		this.inscritos.add(inscrito);
 	}
-	public void addJogador(Jogador jogador) {
-		this.jogadores.add(jogador);
+	public void removeInscrito(UsuarioInscricao inscrito){
+		if(inscritos != null){
+			this.inscritos.removeIf(x -> x.getRg() == inscrito.getRg());
+		}
 	}
-	public void removeJogador(Jogador jogador){
-		this.jogadores.remove(jogador);
-	}
-	public List<ComissaoTecnica> getComissaoTecnica() {
-		return comissaoTecnica;
-	}
-	public void addComissaoTecnica(ComissaoTecnica comissaoTecnica) {
-		this.comissaoTecnica.add(comissaoTecnica);
-	}
-	public void removeComissaoTecnica(ComissaoTecnica comissaoTecnica) {
-		this.comissaoTecnica.remove(comissaoTecnica);
-	}
+	
 	public String getCodigoInscricao() {
 		return codigoInscricao;
 	}
@@ -54,6 +52,7 @@ public class InscricaoEquipe implements EntityModel {
 	public void setPagamentoEfetuado(boolean pagamentoEfetuado) {
 		this.pagamentoEfetuado = pagamentoEfetuado;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -64,18 +63,15 @@ public class InscricaoEquipe implements EntityModel {
 	@ManyToOne
 	private CategoriaCampeonato categoriaCampeonato;
 	
-	@ManyToMany
-	@JoinTable(name="inscricao_jogador", joinColumns=
-	{@JoinColumn(name="inscricao_id")}, inverseJoinColumns=
-  	{@JoinColumn(name="jogador_id")})
-	private List<Jogador> jogadores;
+	@OneToMany(mappedBy="inscricao")
+	private List<UsuarioInscricao> inscritos;
 	
-	@ManyToMany
-	@JoinTable(name="inscricao_comissao", joinColumns=
-	{@JoinColumn(name="inscricao_id")}, inverseJoinColumns=
-  	{@JoinColumn(name="comissao_id")})
-	private List<ComissaoTecnica> comissaoTecnica; 
-
 	private String codigoInscricao;
 	private boolean pagamentoEfetuado;
+	public List<UsuarioInscricao> getInscritos() {
+		return inscritos;
+	}
+	public void setInscritos(List<UsuarioInscricao> inscritos) {
+		this.inscritos = inscritos;
+	}
 }

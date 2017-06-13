@@ -11,16 +11,17 @@ import cruzeirao.service.BaseService;
 
 public class BaseDataModel<T extends EntityModel> extends ListDataModel<T> implements SelectableDataModel<T> 
 {
-	private BaseService<T> service = new BaseService<T>();
-	
-	public BaseDataModel()
-	{
+	private BaseService<T> service;
 		
+	public BaseDataModel(Class<T> classe)
+	{
+		service = new BaseService<T>(classe);
 	}
 
-	public BaseDataModel(List<T> list)
+	public BaseDataModel(Class<T> classe, List<T> list)
 	{
 	   super(list);	
+	   service = new BaseService<T>(classe);
 	}
 	
 	@Override

@@ -1,0 +1,92 @@
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui2="http://java.sun.com/jsf/facelets"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+	
+	<ui:define name="title">
+		<h:outputText value="Cadastro Equipe" />
+	</ui:define>
+    
+    <ui:define name="principal">
+	             
+   		<h1><p:outputLabel value="Cadstro de Equipes" /> </h1>
+	 	
+	      <h:form id="formEquipe">	
+			<p:panelGrid columns="2">
+                <h:outputText value="Nome *" />
+                <p:inputText value="#{equipeManagedBean.equipe.nome}" />
+	                
+                <h:outputText value="Fundadação: *" />
+                <p:calendar value="#{equipeManagedBean.equipe.dataFundacao}" pattern="dd/MM/yyyy" />
+	            
+                <h:outputText value="Cidade: *" />
+                <p:inputText value="#{equipeManagedBean.equipe.cidade}" required="true" label="cidade" />
+
+            </p:panelGrid>
+	            
+			<p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}" action="#{equipeManagedBean.salvar}"
+				update=":formEquipe, :formTableEquipes" />
+		</h:form>		
+		
+	    <h3><p:outputLabel value="Equipes" /> </h3>
+	    
+		<h:form id="formTableEquipes">
+			<p:dataTable value="#{equipeManagedBean.equipes}" var="equi"
+				editable="true" id="tableEquipes">
+	
+	            <p:ajax event="rowEdit" listener="#{equipeManagedBean.onRowEdit}" update="tableEquipes"/>
+	
+				<p:column headerText="Nome">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{equi.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nome" value="#{equi.nome}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+					
+				<p:column headerText="Fundação">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{equi.dataFundacao}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:calendar id="fundacao" value="#{equi.dataFundacao}" 
+								style="width:100%" pattern="dd/MM/yyyy" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>	
+				
+				<p:column headerText="Cidade">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{equi.cidade}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="cidade" value="#{equi.cidade}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+					
+				<p:column style="width:70px" headerText="#{msg['pages.commus.form.opcoes']}">
+						<p:rowEditor />
+						
+						<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+							style="text-align:center"
+							actionListener="#{equipeManagedBean.excluir(equi)}"
+							update=":formTableEquipes" />
+				</p:column>			
+				
+			</p:dataTable>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

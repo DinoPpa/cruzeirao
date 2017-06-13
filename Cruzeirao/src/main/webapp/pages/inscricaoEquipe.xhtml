@@ -1,0 +1,120 @@
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui2="http://java.sun.com/jsf/facelets"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+	
+	<ui:define name="title">
+		<h:outputText value="Inscrição Equipe" />
+	</ui:define>
+    
+    <ui:define name="principal">	             
+   		<h1><p:outputLabel value="Inscrição de Equipe" /></h1>	
+	      <h:form id="formEquipe">	
+			<p:panelGrid columns="2">
+                <h:outputText value="Equipe *" />
+				<p:selectOneMenu value="#{inscricaoEquipeManagedBean.inscricaoEquipe.equipe}"
+					converter="converterEquipe">
+					<f:selectItem itemValue="" itemLabel="SELECIONE" />
+					<f:selectItems value="#{inscricaoEquipeManagedBean.equipes}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+
+                <h:outputText value="Campeonato *" />
+				<p:selectOneMenu value="#{inscricaoEquipeManagedBean.campeonato}"
+					converter="converterCampeonato">
+					<f:selectItem itemValue="" itemLabel="SELECIONE" />
+					<f:selectItems value="#{inscricaoEquipeManagedBean.campeonatos}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+
+                <h:outputText value="Categoria *" />
+				<p:selectOneMenu value="#{inscricaoEquipeManagedBean.categoria}"
+					converter="converterCategoria">
+					<f:selectItem itemValue="" itemLabel="SELECIONE" />
+					<f:selectItems value="#{inscricaoEquipeManagedBean.categorias}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+            </p:panelGrid>
+            
+           	<p:panelGrid columns="3">
+				<p:outputLabel value="CPF Jogador: " />
+				<p:inputText value="#{inscricaoEquipeManagedBean.buscaCPFJogador}" />
+				<p:commandButton value="Buscar" ajax="true" action="#{inscricaoEquipeManagedBean.buscarJogador}"
+					update=":formEquipe" />
+		    </p:panelGrid>
+				
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Nome: " />
+				<p:inputText value="#{inscricaoEquipeManagedBean.jogador.usuario.nome}" disabled="true" />   			    
+  				
+ 				<p:outputLabel value="RG: " />
+				<p:inputText value="#{inscricaoEquipeManagedBean.jogador.rg}" />
+ 			    
+ 			    <p:outputLabel value="Data de Nascimento: " />
+				<p:calendar value="#{inscricaoEquipeManagedBean.jogador.dataNascimento}" pattern="dd/MM/yyyy" />
+				
+				<p:outputLabel value="Sexo: " />
+				<p:selectOneMenu id="sexo" value="#{inscricaoEquipeManagedBean.jogador.sexo}" >
+		           <f:selectItem itemLabel="SELECIONE" itemValue="" />
+		           <f:selectItem itemLabel="Masculino" itemValue="1" />
+		           <f:selectItem itemLabel="Feminino" itemValue="2" />
+       			</p:selectOneMenu>
+ 		    </p:panelGrid>
+ 		    		    
+			<p:commandButton value="Adicionar" action="#{inscricaoEquipeManagedBean.adicionarJogador}"
+				update=":formEquipe" />
+						
+		    <p:growl id="growl" showDetail="true" />
+			
+			<p:panelGrid columns="3">
+				<p:outputLabel value="CPF Comissao Tecnica: " />
+				<p:inputText value="#{inscricaoEquipeManagedBean.buscaCPFComissao}" />
+				<p:commandButton value="Buscar" action="#{inscricaoEquipeManagedBean.buscarComissao}" 
+					update=":formEquipe"/>
+ 		    </p:panelGrid>			
+ 			<p:panelGrid columns="2">
+  			   	<p:outputLabel value="Nome: " />
+				<p:inputText value="#{inscricaoEquipeManagedBean.comissao.usuario.nome}" disabled="true" />   			    
+  			    
+  			    <p:outputLabel value="RG: " />
+				<p:inputText value="#{inscricaoEquipeManagedBean.comissao.rg}" />
+  			    
+  			    <p:outputLabel value="CREF: " />
+				<p:inputText value="#{inscricaoEquipeManagedBean.comissao.cref}" />
+ 			</p:panelGrid>   			    
+   			    
+			<p:commandButton value="Adicionar" action="#{inscricaoEquipeManagedBean.adicionarComissao}"
+				update=":formEquipe" />
+						
+			<p:dataTable value="#{inscricaoEquipeManagedBean.inscricaoEquipe.inscritos}" var="j">
+				<p:column headerText="Nome">
+					<h:outputText value="#{j.usuario.nome}" />
+				</p:column>
+	
+				<p:column headerText="CPF">
+					<h:outputText value="#{j.usuario.cpf}" />
+				</p:column>
+	
+				<p:column headerText="RG">
+					<h:outputText value="#{j.rg}" />
+				</p:column>
+	
+				<p:column style="width:70px" headerText="#{msg['pages.commus.form.opcoes']}">
+					<p:rowEditor />
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center"
+						actionListener="#{inscricaoEquipeManagedBean.removerInscrito(j)}"
+						update=":formEquipe" />
+				</p:column>
+			</p:dataTable>
+					            
+			<p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}" action="#{inscricaoEquipeManagedBean.salvar}"
+				update=":formEquipe" />
+		</h:form>		
+		
+	</ui:define>
+</ui:composition>

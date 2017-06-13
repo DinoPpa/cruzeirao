@@ -8,6 +8,10 @@ import cruzeirao.model.EntityModel;
 public class BaseService<T extends EntityModel> {
 	private DAOImpl<T> dao;
 	
+	public BaseService(Class<T> classe){
+		dao = new DAOImpl<T>(classe);
+	}
+	
 	public void salvar(T e){
 		dao.save(e);
 	}

@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 
 import cruzeirao.model.EntityModel;
 
-public abstract class DAOImpl <T extends EntityModel> {
+public class DAOImpl <T extends EntityModel> {
 
     private static EntityManagerFactory emf;
     private EntityManager em;

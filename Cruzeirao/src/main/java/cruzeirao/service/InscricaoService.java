@@ -3,6 +3,7 @@ package cruzeirao.service;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import cruzeirao.dao.*;
 import cruzeirao.model.*;
@@ -12,6 +13,10 @@ public class InscricaoService extends BaseService<InscricaoEquipe> {
 	private EquipeDao equipeDao = new EquipeDao();
 	private UsuarioDao usuarioDao = new UsuarioDao();
 	private DiretorDao diretorDao = new DiretorDao();
+	
+	public InscricaoService(){
+		super(InscricaoEquipe.class);
+	}
 	
 	public List<Campeonato> listarCampeonatos(){
 		return campeonatoDao.getAll().stream().filter(x -> x.getInscricaoAtiva()).collect(Collectors.toList());
@@ -26,6 +31,6 @@ public class InscricaoService extends BaseService<InscricaoEquipe> {
 	}
 	
 	public Usuario obterUsuarioPorCpf(String cpf){
-		return usuarioDao.getAll().stream().filter(x -> x.getCpf() == cpf).findFirst().get();
+		return usuarioDao.getAll().stream().filter((x) -> x.getCpf().equals(cpf)).collect(Collectors.toList()).iterator().next();
 	}	
 }

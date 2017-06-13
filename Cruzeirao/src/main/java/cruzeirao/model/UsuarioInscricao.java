@@ -1,5 +1,7 @@
 package cruzeirao.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -61,4 +63,15 @@ public class UsuarioInscricao implements EntityModel
 	
 	private boolean aceiteUsuario;
 	private boolean inscricaoValida;
+
+	@ManyToOne
+	private InscricaoEquipe inscricao;
+
+	public InscricaoEquipe getInscricao() {
+		return inscricao;
+	}
+	public void setInscricao(InscricaoEquipe inscricao) {
+		this.inscricao = inscricao;
+	}
+
 }

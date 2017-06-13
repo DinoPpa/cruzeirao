@@ -6,6 +6,12 @@ import javax.persistence.*;
 
 @Entity
 public class Jogador extends UsuarioInscricao{
+	
+	public Jogador(){
+		this.setTipo(EnumTipoParticipante.Jogador);
+		this.setUsuario(new Usuario());
+	}
+	
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -14,11 +20,11 @@ public class Jogador extends UsuarioInscricao{
 		this.dataNascimento = dataNascimento;
 	}
 
-	public EnumSexo getSexo() {
+	public int getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(EnumSexo sexo) {
+	public void setSexo(int sexo) {
 		this.sexo = sexo;
 	}
 
@@ -71,7 +77,7 @@ public class Jogador extends UsuarioInscricao{
 	}
 
 	private Date dataNascimento;
-	private EnumSexo sexo;
+	private int sexo;
 	private int numeroCamisa;
 	
 	private int partidasSuspenso;

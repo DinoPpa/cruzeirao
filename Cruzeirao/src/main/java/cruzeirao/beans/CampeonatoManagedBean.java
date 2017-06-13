@@ -14,10 +14,6 @@ import sistema.modelos.Produto;
 @SessionScoped
 public class CampeonatoManagedBean {
 	private Campeonato campeonato = new Campeonato();
-	private Campeonato campeonatoSelecionado ;
-	private Local localSelecionado;
-	private Juiz juizSelecionado;
-	private Categoria categoriaSelecionada;
 	private CampeonatoService service = new CampeonatoService();
 	
 	public Campeonato getCampeonato() {
@@ -37,30 +33,6 @@ public class CampeonatoManagedBean {
 		service.excluir(campeonato.getId());
 	}
 	
-	public List<Local> getLocaisCampeonato(){
-		if(campeonatoSelecionado != null){
-			return campeonatoSelecionado.getLocais();
-		}
-		return null;
-		
-	}
-	
-	public List<Juiz> getJuizesCampeonato(){
-		
-		if(campeonatoSelecionado != null){
-			return campeonatoSelecionado.getJuizes();
-		}
-		return null;
-		
-	}
-	public List<Categoria> getCategoriasCampeonato(){
-		if(campeonatoSelecionado != null){
-			return campeonatoSelecionado.getCategorias();
-		}
-		return null;
-		
-	}
-	
 	public List<Local> getLocais(){
 		return service.listarLocais();
 	}
@@ -77,54 +49,9 @@ public class CampeonatoManagedBean {
 		Campeonato c = ((Campeonato) event.getObject());
 		service.salvar(c);
 	}
-	
-	public void adicionarLocal(){
-		campeonatoSelecionado.addLocal(localSelecionado);
-	}
-	
-	public void adicionarJuiz(){
-		campeonatoSelecionado.addJuiz(juizSelecionado);
-	}
-	
-	public void adicionarCategoria(){
-		campeonatoSelecionado.addCategorias(categoriaSelecionada);
-	}
-	
-	public Campeonato getCampeonatoSelecionado() {
-		return campeonatoSelecionado;
-	}
-
-	public void setCampeonatoSelecionado(Campeonato campeonatoSelecionado) {
-		this.campeonatoSelecionado = campeonatoSelecionado;
-	}
-
-	public Juiz getJuizSelecionado() {
-		return juizSelecionado;
-	}
-
-	public void setJuizSelecionado(Juiz juizSelecionado) {
-		this.juizSelecionado = juizSelecionado;
-	}
-
-	public Categoria getCategoriaSelecionada() {
-		return categoriaSelecionada;
-	}
-
-	public void setCategoriaSelecionada(Categoria categoriaSelecionada) {
-		this.categoriaSelecionada = categoriaSelecionada;
-	}
-
-	public Local getLocalSelecionado() {
-		return localSelecionado;
-	}
-
-	public void setLocalSelecionado(Local localSelecionado) {
-		this.localSelecionado = localSelecionado;
-	}
-	
+		
 	public List<Campeonato> getCampeonatos(){
-		//return service.listar();
-		return new ArrayList<Campeonato>();
+		return service.listar();
 	}
 
 }

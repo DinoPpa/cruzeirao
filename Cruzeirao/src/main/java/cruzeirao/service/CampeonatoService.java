@@ -10,6 +10,10 @@ public class CampeonatoService extends BaseService<Campeonato> {
 	private LocalDao localDao = new LocalDao();
 	private JuizDao juizDao = new JuizDao();
 	
+	public CampeonatoService() {
+		super(Campeonato.class);
+	}	
+	
 	public List<Local> listarLocais(){
 		return localDao.getAll();
 	}

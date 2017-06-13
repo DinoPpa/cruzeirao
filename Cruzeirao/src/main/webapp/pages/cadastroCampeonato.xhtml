@@ -1,4 +1,3 @@
-
 <ui:composition template="templateMenu.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -14,113 +13,64 @@
 	
 	<ui:define name="principal">
 	
-	<h1><p:outputLabel value="#{msg['pages.cadastroCampeonato.menu']}" /> </h1>
- 	<h:form id="formCampeonatos">
-
-		<p:panelGrid columns="2">
-			<p:outputLabel value="#{msg['pages.cadastroCampeonato.nome']}" />
-			<p:inputText value="#{campeonatoManagedBean.campeonato.nome}" />
-
-			<p:outputLabel value="#{msg['pages.cadastroCampeonato.dataInicioInscricao']}" />
-			<p:calendar value="#{campeonatoManagedBean.campeonato.dataInicioInscricao}" pattern="MM/dd/yyyy" />
-
-			<p:outputLabel value="#{msg['pages.cadastroCampeonato.dataFimInscricao']}" />
-			<p:calendar value="#{campeonatoManagedBean.campeonato.dataFimInscricao}" pattern="MM/dd/yyyy" />
-
-			<p:outputLabel value="#{msg['pages.cadastroCampeonato.dataInicioCampeonato']}" />
-			<p:calendar value="#{campeonatoManagedBean.campeonato.dataInicioCampeonato}" pattern="MM/dd/yyyy" />
-
-			<p:outputLabel value="#{msg['pages.cadastroCampeonato.dataFimCampeonato']}" />
-			<p:calendar value="#{campeonatoManagedBean.campeonato.dataFimCampeonato}" pattern="MM/dd/yyyy" />
-
-			<p:outputLabel value="#{msg['pages.cadastroCampeonato.valorTaxa']}" />
-			<p:inputText value="#{campeonatoManagedBean.campeonato.valorTaxa}" />
-			
-			<p:outputLabel value="Local" />
-			<p:selectOneMenu value="#{campeonatoManagedBean.localSelecionado}"
-				converter="converterLocal">
-				<f:selectItem itemValue="" itemLabel="#{msg['pages.cadastroCampeonato.local.msg']}" />
-				<f:selectItems value="#{campeonatoManagedBean.locais}" var="aux"
-					itemValue="#{aux}" itemLabel="#{aux.nome}" />
-			</p:selectOneMenu>
-			
-			<p:commandButton value="#{msg['pages.comuns.form.btnAdicionar']}" action="#{campeonatoManagedBean.adicionarLocal}"
-				update=":formTableLocais" />
-				
-		</p:panelGrid>
-		<p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}" action="#{campeonatoManagedBean.salvar}"
-			update=":formCampeonatos, :formTableCampeonatos" />
-	</h:form>
+		<h1><p:outputLabel value="#{msg['pages.cadastroCampeonato.menu']}" /> </h1>
+	 	
+		<h:form id="formCampeonatos">	
+			<p:panelGrid columns="2">
+				<p:outputLabel value="#{msg['pages.cadastroCampeonato.nome']}" />
+				<p:inputText value="#{campeonatoManagedBean.campeonato.nome}" />
 	
-	 <h:form id="formTableLocais">
-	    <h3><p:outputLabel value="#{msg['pages.cadastroCampeonato.locaisCampeonato']}: #{campeonatoManagedBean.campeonatoSelecionado.nome}" /></h3>
-		<p:dataTable value="#{campeonatoManagedBean.locaisCampeonato}" var="loc"	id="tableLocais">
-			<p:column headerText="#{msg['pages.cadastroCampeonato.local.nome']}">
-				<p:outputLabel value="#{loc.nome}" />
-			</p:column>
-		</p:dataTable>
-	</h:form>
+				<p:outputLabel value="#{msg['pages.cadastroCampeonato.dataInicioInscricao']}" />
+				<p:calendar value="#{campeonatoManagedBean.campeonato.dataInicioInscricao}" pattern="MM/dd/yyyy" />
 	
-	 <h:form id="formTableJuizes">
-	    <h3><p:outputLabel value="#{msg['pages.cadastroCampeonato.juizesCampeonato']}: #{campeonatoManagedBean.campeonatoSelecionado.nome}" /></h3>
-		<p:dataTable value="#{campeonatoManagedBean.juizesCampeonato}" var="jui"	id="tableJuizes">
-			<p:column headerText="#{msg['pages.cadastroCampeonato.juiz.nome']}">
-				<p:outputLabel value="#{juiz.nome}" />
-			</p:column>
-		</p:dataTable>
-	</h:form>
-
-	<h:form id="formTableCategorias">
-	    <h3><p:outputLabel value="#{msg['pages.cadastroCampeonato.categoriasCampeonato']}: #{campeonatoManagedBean.campeonatoSelecionado.nome}" /></h3>
-		<p:dataTable value="#{campeonatoManagedBean.categoriasCampeonato}" var="cate"	id="tableCategorias">
-			<p:column headerText="#{msg['pages.cadastroCampeonato.categoria.nome']}">
-				<p:outputLabel value="#{cate.nome}" />
-			</p:column>
-			<p:column headerText="#{msg['pages.cadastroCampeonato.categoria.nascidosApartirDe']}">
-				<p:outputLabel value="#{cate.nascidosApartirDe}" />
-			</p:column>
-			<p:column headerText="#{msg['pages.cadastroCampeonato.categoria.minJogadores']}">
-				<p:outputLabel value="#{cate.minJogadores}" />
-			</p:column>
-			<p:column headerText="#{msg['pages.cadastroCampeonato.categoria.maxJogadores']}">
-				<p:outputLabel value="#{cate.maxJogadores}" />
-			</p:column>
-			<p:column headerText="#{msg['pages.cadastroCampeonato.cate.sexo']}">
-				<p:outputLabel value="#{cate.sexo}" />
-			</p:column>
-		</p:dataTable>
-	</h:form>
-
-    <h3><p:outputLabel value="#{msg['pages.cadastroCampeonato.tableTitle']}" /> </h3>
-    
-	<h:form id="formTableCampeonatos">
-		<p:dataTable value="#{campeonatoManagedBean.campeonatos}" var="camp"
-			editable="true" id="tableCampeonatos">
-
-            <p:ajax event="rowEdit" listener="#{campeonatoManagedBean.onRowEdit}" update="tableCampeonatos"/>
-
-			<p:column headerText="#{msg['pages.cadastroCampeonato.nome']}">
-				<p:cellEditor>
-					<f:facet name="output">
-						<p:outputLabel value="#{camp.nome}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText id="nome" value="#{camp.nome}"
-							style="width:100%" />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-			<p:column style="width:70px" headerText="#{msg['pages.commus.form.opcoes']}">
-					<p:rowEditor />
-					
-					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
-						style="text-align:center"
-						actionListener="#{campeonatoManagedBean.remove(camp)}"
-						update=":formTableCampeonatos" />
-			</p:column>
-		</p:dataTable>
-	</h:form>
+				<p:outputLabel value="#{msg['pages.cadastroCampeonato.dataFimInscricao']}" />
+				<p:calendar value="#{campeonatoManagedBean.campeonato.dataFimInscricao}" pattern="MM/dd/yyyy" />
+	
+				<p:outputLabel value="#{msg['pages.cadastroCampeonato.dataInicioCampeonato']}" />
+				<p:calendar value="#{campeonatoManagedBean.campeonato.dataInicioCampeonato}" pattern="MM/dd/yyyy" />
+	
+				<p:outputLabel value="#{msg['pages.cadastroCampeonato.dataFimCampeonato']}" />
+				<p:calendar value="#{campeonatoManagedBean.campeonato.dataFimCampeonato}" pattern="MM/dd/yyyy" />
+	
+				<p:outputLabel value="#{msg['pages.cadastroCampeonato.valorTaxa']}" />
+				<p:inputText value="#{campeonatoManagedBean.campeonato.valorTaxa}" />
+	
+			</p:panelGrid>
+			
+			<p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}" action="#{campeonatoManagedBean.salvar}"
+				update=":formCampeonatos, :formTableCampeonatos" />
+		</h:form>		
+		
+	    <h3><p:outputLabel value="#{msg['pages.cadastroCampeonato.tableTitle']}" /> </h3>
+	    
+		<h:form id="formTableCampeonatos">
+			<p:dataTable value="#{campeonatoManagedBean.campeonatos}" var="camp"
+				editable="true" id="tableCampeonatos">
+	
+	            <p:ajax event="rowEdit" listener="#{campeonatoManagedBean.onRowEdit}" update="tableCampeonatos"/>
+	
+				<p:column headerText="#{msg['pages.cadastroCampeonato.nome']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{camp.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nome" value="#{camp.nome}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+	
+				<p:column style="width:70px" headerText="#{msg['pages.commus.form.opcoes']}">
+						<p:rowEditor />
+						
+						<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+							style="text-align:center"
+							actionListener="#{campeonatoManagedBean.excluir(camp)}"
+							update=":formTableCampeonatos" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
 
 	</ui:define>
 </ui:composition>
