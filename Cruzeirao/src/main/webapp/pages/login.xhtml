@@ -15,17 +15,18 @@
 	             
    		<h1><p:outputLabel value="Login" /> </h1>
 	 	
+	 	<p:growl id="msg" />
+	 	
 	      <h:form id="formUsuario">	
 			<p:panelGrid columns="2">
                 <h:outputText value="Login *" />
                 <p:inputText value="#{loginManagedBean.login}" />
 	            
 	            <h:outputText value="Senha: *" />
-                <p:inputText value="#{loginManagedBean.senha}" />
+                <p:password value="#{loginManagedBean.senha}" />
             </p:panelGrid>
 	            
-			<p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}" actionListener="#{loginManagedBean.autenticar()}" 
-				ajax="true"/>
+			<p:commandButton value="Login" ajax="true" action="#{loginManagedBean.autenticar()}" update="msg" />
 		</h:form>		
 	</ui:define>
 </ui:composition>

@@ -45,9 +45,10 @@
 	    
 		<h:form id="formTableCampeonatos">
 			<p:dataTable value="#{campeonatoManagedBean.campeonatos}" var="camp"
-				editable="true" id="tableCampeonatos">
-	
-	            <p:ajax event="rowEdit" listener="#{campeonatoManagedBean.onRowEdit}" update="tableCampeonatos"/>
+				editable="true" id="tableCampeonatos"
+				selectionMode="single"  >
+	            
+	            <p:ajax event="rowEdit" listener="#{campeonatoManagedBean.onRowEdit}" update=":formTableCampeonatos"/>
 	
 				<p:column headerText="#{msg['pages.cadastroCampeonato.nome']}">
 					<p:cellEditor>

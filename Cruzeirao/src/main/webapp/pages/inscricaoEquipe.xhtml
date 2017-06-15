@@ -42,7 +42,7 @@
             
            	<p:panelGrid columns="3">
 				<p:outputLabel value="CPF Jogador: " />
-				<p:inputText value="#{inscricaoEquipeManagedBean.buscaCPFJogador}" />
+				<p:inputMask value="#{inscricaoEquipeManagedBean.buscaCPFJogador}" mask="999.999.999-99"/>
 				<p:commandButton value="Buscar" ajax="true" action="#{inscricaoEquipeManagedBean.buscarJogador}"
 					update=":formEquipe" />
 		    </p:panelGrid>
@@ -52,10 +52,10 @@
 				<p:inputText value="#{inscricaoEquipeManagedBean.jogador.usuario.nome}" disabled="true" />   			    
   				
  				<p:outputLabel value="RG: " />
-				<p:inputText value="#{inscricaoEquipeManagedBean.jogador.rg}" />
+				<p:inputMask value="#{inscricaoEquipeManagedBean.jogador.rg}" mask="99.999.999-*" />
  			    
  			    <p:outputLabel value="Data de Nascimento: " />
-				<p:calendar value="#{inscricaoEquipeManagedBean.jogador.dataNascimento}" pattern="dd/MM/yyyy" />
+				<p:calendar value="#{inscricaoEquipeManagedBean.jogador.dataNascimento}" pattern="dd/MM/yyyy"  />
 				
 				<p:outputLabel value="Sexo: " />
 				<p:selectOneMenu id="sexo" value="#{inscricaoEquipeManagedBean.jogador.sexo}" >
@@ -71,7 +71,7 @@
 		    <p:growl id="growl" showDetail="true" />
 			
 			<p:panelGrid columns="3">
-				<p:outputLabel value="CPF Comissao Tecnica: " />
+				<p:outputLabel value="CPF Comissao Tecnica: " mask="999.999.999-99"/>
 				<p:inputText value="#{inscricaoEquipeManagedBean.buscaCPFComissao}" />
 				<p:commandButton value="Buscar" action="#{inscricaoEquipeManagedBean.buscarComissao}" 
 					update=":formEquipe"/>
@@ -104,7 +104,7 @@
 				</p:column>
 	
 				<p:column style="width:70px" headerText="#{msg['pages.commus.form.opcoes']}">
-					<p:rowEditor />
+					
 					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
 						style="text-align:center"
 						actionListener="#{inscricaoEquipeManagedBean.removerInscrito(j)}"

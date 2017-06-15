@@ -3,11 +3,15 @@ package cruzeirao.beans;
 import java.util.*;
 
 import javax.faces.bean.*;
+import javax.faces.model.DataModel;
 
 import org.primefaces.event.RowEditEvent;
 
+import cruzeirao.beans.datamodel.BaseDataModel;
 import cruzeirao.model.*;
 import cruzeirao.service.*;
+import sistema.beans.datamodel.FornecedorDataModel;
+import sistema.modelos.Fornecedor;
 import sistema.modelos.Produto;
 
 @ManagedBean
@@ -15,6 +19,7 @@ import sistema.modelos.Produto;
 public class CampeonatoManagedBean {
 	private Campeonato campeonato = new Campeonato();
 	private CampeonatoService service = new CampeonatoService();
+	private Campeonato campeonatoSelecionado;
 	
 	public Campeonato getCampeonato() {
 		return campeonato;
@@ -50,8 +55,17 @@ public class CampeonatoManagedBean {
 		service.salvar(c);
 	}
 		
-	public List<Campeonato> getCampeonatos(){
-		return service.listar();
+	public DataModel<Campeonato> getCampeonatos(){
+
+		return new BaseDataModel<Campeonato>(Campeonato.class, service.listar());
+	}
+
+	public Campeonato getCampeonatoSelecionado() {
+		return campeonatoSelecionado;
+	}
+
+	public void setCampeonatoSelecionado(Campeonato campeonatoSelecionado) {
+		this.campeonatoSelecionado = campeonatoSelecionado;
 	}
 
 }

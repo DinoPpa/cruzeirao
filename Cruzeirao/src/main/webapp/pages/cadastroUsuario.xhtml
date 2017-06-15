@@ -21,7 +21,7 @@
                 <p:inputText value="#{usuarioManagedBean.usuario.nome}" required="true" />
 	            
 	            <h:outputText value="CPF *" />
-                <p:inputText value="#{usuarioManagedBean.usuario.cpf}" required="true" />
+                <p:inputMask value="#{usuarioManagedBean.usuario.cpf}" required="true" mask="999.999.999-99" />
 	             
 	            <h:outputText value="Email *" />
                 <p:inputText value="#{usuarioManagedBean.usuario.email}"  required="true" />
@@ -30,7 +30,7 @@
                 <p:inputText value="#{usuarioManagedBean.usuario.login}" required="true" />
 
                 <h:outputText value="Senha: *" />
-                <p:inputText value="#{usuarioManagedBean.usuario.senha}" required="true"  />
+                <p:password value="#{usuarioManagedBean.usuario.senha}" required="true"  />
             </p:panelGrid>
 	            
 			<p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}" action="#{usuarioManagedBean.salvar}"

@@ -35,6 +35,7 @@ public class DAOImpl <T extends EntityModel> {
 
 	public void remove(T entity) {
 		getEntityManager().getTransaction().begin();
+		entity = getEntityManager().merge(entity);
 		getEntityManager().remove(entity);
 		getEntityManager().getTransaction().commit();
 		

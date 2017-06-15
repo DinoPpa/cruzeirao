@@ -47,11 +47,19 @@
 	    
 		<h:form id="formTableCategorias">
 			<p:dataTable value="#{categoriaManagedBean.categorias}" var="cate"
-				editable="true" id="tableCategorias">
+				editable="true" id="tableCategorias" selection="#{categoriaManagedBean.categoriaSelecionado}"  rowKey="#{cate.id}">
 	
-	            <p:ajax event="rowEdit" listener="#{categoriaManagedBean.onRowEdit}" update="tableCategorias"/>
+				<p:ajax event="rowSelect"   update=":formTableCategorias" />
+	           <p:ajax event="rowUnselect" update=":formTableCategorias" />
+          
+	            <p:ajax event="rowEdit" listener="#{categoriaManagedBean.onRowEdit}" update=":formTableCategorias"/>
 	
 				<p:column headerText="Nome">
+
+			<p:column headerText="Id">
+				<h:outputText value="#{cate.id}" />
+			</p:column>				
+				
 					<p:cellEditor>
 						<f:facet name="output">
 							<p:outputLabel value="#{cate.nome}" />

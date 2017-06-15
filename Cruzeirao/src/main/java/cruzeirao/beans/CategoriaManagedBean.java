@@ -14,6 +14,7 @@ import cruzeirao.service.*;
 public class CategoriaManagedBean {
 	private Categoria categoria = new Categoria();
 	private CategoriaService service= new CategoriaService();
+	private Categoria categoriaSelecionado;
 	
 	public void salvar(){
 		service.salvar(categoria);
@@ -43,5 +44,13 @@ public class CategoriaManagedBean {
 	
 	public EnumTipoCategoria[] getListaSexo(){
 		return EnumTipoCategoria.values();
+	}
+
+	public Categoria getCategoriaSelecionado() {
+		return categoriaSelecionado;
+	}
+
+	public void setCategoriaSelecionado(Categoria categoriaSelecionado) {
+		this.categoriaSelecionado = categoriaSelecionado;
 	}
 }

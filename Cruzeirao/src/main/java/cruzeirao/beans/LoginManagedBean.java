@@ -2,6 +2,7 @@ package cruzeirao.beans;
 
 import java.io.IOException;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -30,13 +31,18 @@ public class LoginManagedBean {
 		this.senha = senha;
 	}
 	
-	public void autenticar(){
+
+	public String autenticar(){
 		if(service.autenticar(login, senha)){
-			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			FacesContext context = FacesContext.getCurrentInstance();
+				
+			context.getExternalContext().getSessionMap().put("user", login);
+			
+			return "inicio?faces-redirect=true";
+		}
+		else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login ou Senha incorretos.", "Login ou Senha incorretos."));
+			return null;
 		}
 	}
 }
